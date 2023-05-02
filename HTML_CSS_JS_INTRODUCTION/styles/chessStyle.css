@@ -1,0 +1,38 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 95vh;
+    justify-content: center;
+}
+
+.contaner_board {
+    width: 70vh;
+    height: 70vh;
+}
+
+.column{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 12.5%;
+}
+
+.black{
+    width: 12.5%;
+    height: 100%;
+    background-color: black;
+}
+
+.white{
+    width: 12.5%;
+    height: 100%;
+    background-color: bisque;
+}
+
+.link {
+    margin-top: 3%; 
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
