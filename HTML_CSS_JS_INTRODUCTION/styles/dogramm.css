@@ -109,8 +109,28 @@ position: relative;
 }
 
 .link_back{
-    display: block;
+    display: flex;
+    flex-direction: column;
     text-align: center;
+    
+}
+
+.hidden .details-section{
+    display: none;
+}
+
+.hidden .thumbnails_container{
+    max-width: 100vw;
+    max-height: 68vh;
+    padding: 0;
+    margin: 0;
+}
+
+.hideButton{
+    font-size: 1em;
+    position: absolute;
+    top: 0vh;
+    right: 2vw;
 }
 
 @media (min-width: 650px){
