@@ -22,6 +22,12 @@ header{
     background-color: darkgrey;
 }
 
+footer{
+    position: fixed;
+    bottom: 1vh;
+    padding-left: 4vw;
+}
+
 main{
     display: flex;
     flex-direction: column;
@@ -38,10 +44,13 @@ main{
     align-items: center;
     justify-content: center;
     margin-top: 5vh;
+    
 }
 
 .details-container{
+
 position: relative;
+transition: 1s;
 }
 
 .details-title{
@@ -58,6 +67,8 @@ position: relative;
     width: 95vw;
     height: 85vw;
     border-radius: 20%;
+    border-style: groove;
+    border-color: bisque;
 }
 
 .thumbnails_galery{
@@ -78,7 +89,7 @@ position: relative;
 .thumbnails_item{ 
     overflow: hidden;
     margin: 3px;
-    border: solid 1px blue;
+    border: solid 1px bisque;
     border-radius: 25%;
     max-width: var(--thumbnails-img-width);
     min-width: var(--thumbnails-img-width);
@@ -131,6 +142,12 @@ position: relative;
     position: absolute;
     top: 0vh;
     right: 2vw;
+    border-radius: 40%;
+}
+
+.point{
+    transform: scale(0.001);
+    transition: 0s;
 }
 
 @media (min-width: 650px){
@@ -158,7 +175,6 @@ position: relative;
         width: 46vw;
         height: 36vw;
         border-radius: 20%;
-        padding-right: 2vw;
     }
 
     .details-section{
@@ -178,7 +194,7 @@ position: relative;
 
     .thumbnails_container{
         max-width: 35vw;;
-        max-height: 70vh;
+        max-height: 67vh;
         padding: 4vh;
         margin-left: 5vw;
         margin-bottom: 0;
@@ -202,7 +218,6 @@ position: relative;
         width: 50vw;
         height: 76vh;
         border-radius: 20%;
-        padding-right: 2vw;
     }
 
     .details-title{
