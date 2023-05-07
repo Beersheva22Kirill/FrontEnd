@@ -7,6 +7,7 @@ body{
 }
 
 .contaner_board {
+    border-style: solid;
     width: 70vh;
     height: 70vh;
 }
@@ -18,19 +19,21 @@ body{
     height: 12.5%;
 }
 
-.black{
+.cell{
     width: 12.5%;
     height: 100%;
+}
+
+.black{
     background-color: black;
 }
 
 .white{
-    width: 12.5%;
-    height: 100%;
     background-color: bisque;
 }
 
-.link {
+.link_back {
+    font-size: 1.5em;
     margin-top: 3%; 
     text-decoration: none;
     display: flex;

@@ -3,6 +3,7 @@ background-color:darkgray;
 width: 100%;
 height: 5vw;
 }
+
 body{
     display: flex;
     flex-direction: column;
@@ -16,6 +17,7 @@ background-color: black;
 width: 100%;
 height: 5vw;
 }
+
 .link {
     /* overflow: auto; */
     margin-bottom: 3%; 
@@ -23,11 +25,13 @@ height: 5vw;
     display: flex;
     align-items: center;
 }
+
 .list_references{
     display: flex;
     flex-direction: column;
     height: 35%;
 }
+
 .contaner_ref{
     display: flex;
     flex-direction: row;
