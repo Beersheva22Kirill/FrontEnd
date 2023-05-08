@@ -5,7 +5,7 @@
 }
 
 :root{
-    --thumbnails-img-width: 10vh;
+    --thumbnails-img-width: 20vw;
     --thumbnails-img-heigth: calc(var(--thumbnails-img-width) * 0.88);
     --thumbnails-title-heigth: calc(var(--thumbnails-img-heigth) * 0.3);
 }
@@ -132,7 +132,7 @@ transition: 1s;
 
 .hidden .thumbnails_container{
     max-width: 100vw;
-    max-height: 68vh;
+    max-height: 75vh;
     padding: 0;
     margin: 0;
 }
@@ -194,8 +194,7 @@ transition: 1s;
 
     .thumbnails_container{
         max-width: 35vw;;
-        max-height: 67vh;
-        padding: 4vh;
+        max-height: 77vh;
         margin-left: 5vw;
         margin-bottom: 0;
     }
