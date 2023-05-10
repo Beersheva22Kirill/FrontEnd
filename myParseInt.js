@@ -2,13 +2,13 @@
 //`...${<expression>}`
 const strNum = '1AG';
 const radix = 16;
-console.log(`string with number ${strNum} with radix ${radix} is ${parseInt(strNum, radix)}`, typeof parseInt(strNum, radix))
-console.log(`string with number My ${strNum} with radix ${radix}  is ${myParseInt(strNum, radix)}`, typeof myParseInt(strNum, radix))
-
+console.log(`\n(original function) string with number ${strNum} with radix ${radix} is ${parseInt(strNum, radix)}`, typeof parseInt(strNum, radix))
+console.log(`(my function) string with number ${strNum} with radix ${radix}  is ${myParseInt(strNum, radix)}`, typeof myParseInt(strNum, radix))
+console.log('\n----without radix----');
 const strNum2 = '0x1AG';
 let radix2;
-console.log(`string with number ${strNum2} with radix ${radix2} is ${parseInt(strNum2)}`, typeof parseInt(strNum2))
-console.log(`string with number My ${strNum2} with radix ${radix2}  is ${myParseInt(strNum2)}`, typeof myParseInt(strNum2))
+console.log(`\n(original function) string with number ${strNum2} with radix ${radix2} is ${parseInt(strNum2)}`, typeof parseInt(strNum2))
+console.log(`(my function) string with number My ${strNum2} with radix ${radix2}  is ${myParseInt(strNum2)}`, typeof myParseInt(strNum2) + '\n')
 
 function myParseInt(number, radix){
     if (!radix || radix == 16) {
