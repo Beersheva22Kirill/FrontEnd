@@ -1,0 +1,29 @@
+#bodyId{
+    display: block;
+    width: 100%;
+    height: 100vh;
+}
+
+ol{
+    padding: 0;
+    list-style-type: none;
+}
+
+li {
+    justify-content: center;
+    display: flex;
+}
+
+.cell{
+    width: 30px;
+    height: 30px;
+    border-style: groove;
+}
+
+.white{
+    background-color: bisque;
+}
+
+.black{
+    background-color: black;
+}
