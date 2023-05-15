@@ -1,5 +1,5 @@
 //configuration
-const words = ['apple','check','seven','paint'];
+const words = ['check']//,'apple','check','seven','paint'];
 const nMoves = 6;
 
 //elements
