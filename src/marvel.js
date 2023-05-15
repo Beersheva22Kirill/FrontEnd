@@ -36,7 +36,7 @@ function startGame(){
     checkWordElementLet.disabled = true;
     question = words[getRandomIntNumber(0,words.length - 1)];
     questionElement.innerHTML = question[0];
-    let divLetters = '';
+    let divLetters = ''; 
     for (let index = 0; index < question[1].length; index++) {
         divLetters += `<div class = "square black">${question[1][index]}</div>`;
     }
