@@ -41,3 +41,19 @@ console.log(ar.field);
 
 console.log(Array.from({length:2})) //так можно получить массив undefined
 console.log(Array.from({length : 5}).map((__,index) => index + 5))
+
+console.log('-------------');
+//num == 2;
+num.x = 100;
+console.log(num.x);
+console.log(num)
+
+console.log('-------------');
+const mm = {};
+mm.x = 100;
+console.log(mm.x);
+console.log(mm);
+
+console.log('-------------');
+//let www; //type error т.к. у undefined нет класса обертки
+//www.field1 = 200;
