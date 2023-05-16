@@ -58,5 +58,5 @@ console.log('-------------');
 //let www; //type error т.к. у undefined нет класса обертки
 //www.field1 = 200;
 let str1 ="abcd"
-str1[0] = "*"   //это вообще хер пойми
+str1[0] = "*"   //строка imutable (не изменияемая)
 console.log(str1);
