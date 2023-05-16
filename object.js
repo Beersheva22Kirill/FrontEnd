@@ -57,3 +57,6 @@ console.log(mm);
 console.log('-------------');
 //let www; //type error т.к. у undefined нет класса обертки
 //www.field1 = 200;
+let str1 ="abcd"
+str1[0] = "*"   //это вообще хер пойми
+console.log(str1);
