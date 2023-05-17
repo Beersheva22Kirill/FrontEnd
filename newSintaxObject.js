@@ -37,3 +37,4 @@ console.log("square (square) = " + square.square());
 console.log("square (perimetr) = " + square.perimetr());
 
 
+
