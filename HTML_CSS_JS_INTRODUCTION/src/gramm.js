@@ -10,11 +10,14 @@ const detailContainer = document.querySelector(".details-container");
 const HIDDEN = "hidden";
 const POINT = "point";
 
-for(let i = 0; i < thumbnailsAnchors.length; i++){
-    thumbnailsAnchors[i].addEventListener("click",function(){
-        setDetails(thumbnailsAnchors[i]);
-    })
-}
+// for(let i = 0; i < thumbnailsAnchors.length; i++){
+//     thumbnailsAnchors[i].addEventListener("click",function(){ //обычный рабочий код
+//         setDetails(thumbnailsAnchors[i]);
+//     })
+// }
+
+thumbnailsAnchors.forEach(anchor => anchor.addEventListener("click", //более профессиональный код
+setDetails.bind(undefined,anchor))) // undefined параметр это первый параметр который должен быть This 
 
 function setDetails(anchor){
     detailImgElement.src = anchor.getAttribute("data-details-image");
