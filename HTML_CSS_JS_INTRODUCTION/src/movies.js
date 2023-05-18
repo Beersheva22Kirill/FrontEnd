@@ -1,24 +1,41 @@
-// const a = 1;
-// var b;
-// let c;
+
+{/* <li class="thumbnails_item">
+    <a href="#" class="thumbnails_ancor" data-details-image = "img/galery/1.jpg" data-details-text="The most biuteful image">
+        <img class="thumbnails_image" src="img/galery/1.jpg" alt="">
+        <span class="thumbnails_title">Cat face</span>
+    </a>
+</li> */}
 
 const detailImgElement = document.querySelector(".details-image");
 const detailTitleElement = document.querySelector(".details-title");
-const thumbnailsAnchors = document.querySelectorAll(".thumbnails_ancor");
 const mainSection = document.querySelector("main");
 const detailContainer = document.querySelector(".details-container");
+const thumbContainerElement = document.querySelector(".thumbnails_container");
+const hideButtonElement = document.querySelector(".hideButton");
+
+import moviesObj from '../movies.json' assert {type: 'json'}
+
+
 const HIDDEN = "hidden";
 const POINT = "point";
 
-// for(let i = 0; i < thumbnailsAnchors.length; i++){
-//     thumbnailsAnchors[i].addEventListener("click",function(){ //обычный рабочий код
-//         setDetails(thumbnailsAnchors[i]);
-//     })
-// }
+let prefix = moviesObj.httpPrefix;
+let stringForInner = '';
+moviesObj.results.forEach(element => stringForInner += 
+    `<li class="thumbnails_item">\
+        <a href="#" class= "thumbnails_ancor" data-details-image = "${prefix + element.poster_path}" data-details-text="${element.overview.slice(0,100)}">\
+            <img class="thumbnails_image" src="${prefix + element.backdrop_path}" alt="">\
+            <span class="thumbnails_title">${element.original_title}</span>\
+        </a>\
+    </li>`);
 
-thumbnailsAnchors.forEach(anchor => anchor.addEventListener("click", //более профессиональный код
-setDetails.bind(undefined,anchor))) // undefined параметр это первый параметр который должен быть This 
+thumbContainerElement.innerHTML = stringForInner;
 
+const thumbnailsAnchors = document.querySelectorAll(".thumbnails_ancor");
+
+thumbnailsAnchors.forEach(anchor => anchor.addEventListener("click",setDetails.bind(undefined,anchor))) 
+
+hideButtonElement.addEventListener("click",hideDetails)
 function setDetails(anchor){
     detailImgElement.src = anchor.getAttribute("data-details-image");
     detailTitleElement.innerHTML = anchor.getAttribute("data-details-text");
