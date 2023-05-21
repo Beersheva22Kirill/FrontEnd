@@ -1,11 +1,4 @@
 
-{/* <li class="thumbnails_item">
-    <a href="#" class="thumbnails_ancor" data-details-image = "img/galery/1.jpg" data-details-text="The most biuteful image">
-        <img class="thumbnails_image" src="img/galery/1.jpg" alt="">
-        <span class="thumbnails_title">Cat face</span>
-    </a>
-</li> */}
-
 const detailImgElement = document.querySelector(".details-image");
 const detailTitleElement = document.querySelector(".details-title");
 const mainSection = document.querySelector("main");
@@ -15,7 +8,6 @@ const hideButtonElement = document.querySelector(".hideButton");
 
 import moviesObj from '../movies.json' assert {type: 'json'}
 
-
 const HIDDEN = "hidden";
 const POINT = "point";
 
@@ -23,7 +15,7 @@ let prefix = moviesObj.httpPrefix;
 let stringForInner = '';
 moviesObj.results.forEach(element => stringForInner += 
     `<li class="thumbnails_item">\
-        <a href="#" class= "thumbnails_ancor" data-details-image = "${prefix + element.poster_path}" data-details-text="${element.overview.slice(0,100)}">\
+        <a href="#" class= "thumbnails_ancor" data-details-image = "${prefix + element.poster_path}" data-details-text="${element.overview}">\
             <img class="thumbnails_image" src="${prefix + element.backdrop_path}" alt="">\
             <span class="thumbnails_title">${element.original_title}</span>\
         </a>\

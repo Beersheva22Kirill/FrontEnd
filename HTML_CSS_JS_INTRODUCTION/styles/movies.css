@@ -55,6 +55,8 @@ transition: 1s;
 }
 
 .details-title{
+    height: 10vh;
+    overflow-y: auto;
     background-color: beige;
     font-style: italic;
     font-size: 1rem;
