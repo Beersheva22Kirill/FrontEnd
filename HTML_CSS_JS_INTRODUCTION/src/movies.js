@@ -30,12 +30,9 @@ moviesObj.results.forEach(element => stringForInner +=
     </li>`);
 
 thumbContainerElement.innerHTML = stringForInner;
-
 const thumbnailsAnchors = document.querySelectorAll(".thumbnails_ancor");
-
 thumbnailsAnchors.forEach(anchor => anchor.addEventListener("click",setDetails.bind(undefined,anchor))) 
 
-hideButtonElement.addEventListener("click",hideDetails)
 function setDetails(anchor){
     detailImgElement.src = anchor.getAttribute("data-details-image");
     detailTitleElement.innerHTML = anchor.getAttribute("data-details-text");
@@ -49,6 +46,8 @@ function showDetails (){
         detailContainer.classList.remove(POINT); 
     })
 }
+
+hideButtonElement.addEventListener("click",hideDetails)
 
 function hideDetails(){
     mainSection.classList.add(HIDDEN);
