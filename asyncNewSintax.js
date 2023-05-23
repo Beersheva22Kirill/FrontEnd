@@ -1,3 +1,21 @@
+function sleep (timeout){
+    return new Promise(resolve => setTimeout(() => resolve(), timeout))
+}
+
+function f1(){
+    console.log(`func 1 performed`)
+}
+
+function f2(){
+    console.log(`func 2 performed`)
+}
+
+function f3(){
+    console.log(`func 3 performed`)
+}
+
+
+
 
 function getId(predicate){
     const allId = [123,124,125,126,127];
@@ -23,21 +41,16 @@ function getCar(id){
         setTimeout(() => car ? resolve(car) : reject('no car found'),1000))
 }
 
-function displayCar(id){
-
-   return getId(idp => idp == id)
-   .then(id => getCar(id))
-//    .catch(error => {
-//     console.log(error) // неправильная реализация 
-//     return 'mers'// (catch возвращает что то и продолжается выполнение по then)
-// })
-   .then(car => console.log(car))
-   .catch(error => {
-    console.log(error)
-    })
-   .finally(() => console.log('block finaly'))
+async function displayCar(idParam){
+    try {
+        const id = await getId(idPred => idPred == idParam)
+        const car =  await getCar(id)
+        console.log(car);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
-displayCar('125').then(() => console.log('finish function'));
+displayCar('127').then(() => console.log('finish of search'));
 
 console.log('wating for the date...')
