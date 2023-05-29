@@ -6,7 +6,7 @@ export function  getISODateStr(date){
 
 export function getEndDateStr(beginDate, days){
     const dateb = new Date(beginDate);
-    const endDate = new Date(dateb.setDate(dateb.getDate() + days))
+    const endDate = new Date(dateb.setDate(dateb.getDate() + days - 1))
     return getISODateStr(endDate);
 }
 

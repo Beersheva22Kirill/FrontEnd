@@ -45,7 +45,7 @@ export default class MeteoForm {
         const days = this.#daysElement.value;
         this.#formData.days = days;
         const min_date = getISODateStr(new Date())
-        this.#dateElement.max = getEndDateStr(min_date, this.#maxDays - days);      
+        this.#dateElement.max = getEndDateStr(min_date, this.#maxDays - days + 1);      
     }
 
     #dateHandler() {
@@ -85,9 +85,7 @@ export default class MeteoForm {
         this.#formElement.onsubmit = (event) => {
             event.preventDefault();
             setFromFormData(this.#formData); 
-            this.#setSelectOptions() 
-            this.#titleElement.innerHTML = `Meteo forcast "${this.#formData.city}"`
-
+            this.#titleElement.innerHTML = `Meteo forecast "${this.#formData.city}"`
         }
 
     } 

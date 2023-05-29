@@ -2,7 +2,7 @@ import openMeteoConfig from './config/service-config.json' assert {type: 'json'}
 import OpenMeteoService from './service/OpenMeteoService.js';
 import DataGrid from './ui_ux/DataGrid.js';
 import MeteoForm from './ui_ux/MeteoForm.js';
-import {getISODateStr,getEndDateStr} from './utils/date-functions.js';
+import {getEndDateStr} from './utils/date-functions.js';
 
 //constants definitions
 
