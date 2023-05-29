@@ -17,6 +17,7 @@ const PROMPT_HOUR_FROM = "hour from";
 const TITLE_SERVICE = 'title-service';
 
 export default class WeatherForm {
+    #titleElement;
     #formElement;
     #cityElement;
     #dateElement;
@@ -83,6 +84,7 @@ export default class WeatherForm {
     }
 
     getDateFromForm(){
+        this.#titleElement.innerHTML = `Meteo forecast "${this.#formData.city == undefined ? 'City no selected' : this.#formData.city}"`
         return new Promise(resolve => {
             this.#formElement.onsubmit = (event) => {
                 event.preventDefault();
@@ -100,7 +102,7 @@ export default class WeatherForm {
       
     }
     #setElements() {
-        //this.#cityElement.onchange = this.#cityHandler.bind(this);
+        this.#titleElement = document.getElementById(`${TITLE_SERVICE}`)
         this.#formElement = document.getElementById(`${this.#parentId}-${FORM_ID}`);
         this.#cityElement = document.getElementById(`${this.#parentId}-${CITY_ID}`);
         this.#daysElement = document.getElementById(`${this.#parentId}-${DAYS_ID}`);
