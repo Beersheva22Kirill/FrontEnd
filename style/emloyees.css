@@ -1,0 +1,139 @@
+body{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#title-service{
+    text-align: center;
+}
+.menu-button{
+    font-size: 0.8em;
+    width: 30vw;
+    height: 5vh;
+    margin: 5px;
+    border-radius: 5%;
+}
+
+#button-id{
+    width: 60vw;
+    height: 5vh;
+    margin: 10px;
+}
+
+.menu-button:hover{
+    background-color: burlywood;
+    transition: 0.5s;
+}
+
+.menu-section{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.active {
+    color: white;
+    background-color: chocolate;
+}
+
+table, th, td {
+    border:1px solid black;
+    font-size: 1 em;
+    text-align: center;
+  }
+
+  td{
+    min-width: 10vw;
+  }
+
+  #employees-table-place{
+    margin-top: 4vh;
+    max-height: 50vh;
+    overflow-y: auto;
+    margin-top: 1vh;
+    max-width: 95vw;
+    font-size: 0.8em;
+} 
+
+#spinner-id{
+    text-align: center;
+    vertical-align: middle;
+    position: absolute;
+    width: 65px;
+    height: 65px;
+    top: 250px;
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 3px solid #956e0c;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+  
+  .spinner::after {
+    content: '';  
+    box-sizing: border-box;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 3px solid;
+    border-color: #FF3D00 transparent;
+  }
+  
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  } 
+
+
+ /* .spinner {
+    
+    left: 48vw;
+    top: 40vh;
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid chocolate;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 2s linear infinite;
+
+  }
+
+ 
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  } */
+
+@media(min-width: 1000px){
+
+
+    .menu-button{
+        font-size: 1em;
+        width: 20vw;  
+    }
+
+    #button-id{
+        width: 30vw;
+    }
+
+    #employees-table-place{
+        font-size: 1em;
+    } 
+}
+
