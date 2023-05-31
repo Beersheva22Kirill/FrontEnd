@@ -17,7 +17,11 @@ export default class CompanyService {
     addEmployee(employee) {
         const id = this.#getId();
         this.#employees[id] = {...employee, id};
-        return this.#employees[id];
+        return new Promise(resolved => { 
+            setTimeout(() => resolved(this.#employees[id]),1000)
+        })
+        
+        
 
     }
     #getId() {
@@ -43,13 +47,11 @@ export default class CompanyService {
                 return {min, max, count: e[1]};
             })),3000)
         })
-        
-        
-        
+         
     }
     getAllEmployees() {
         return new Promise(resolved => { 
-            setTimeout(() => resolved(Object.values(this.#employees)),20000)
+            setTimeout(() => resolved(Object.values(this.#employees)),3000)
         })
     }
 

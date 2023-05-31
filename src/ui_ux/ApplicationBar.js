@@ -26,17 +26,17 @@ export default class ApplicationBar {
         this.#buttons.forEach((b, index) => b.addEventListener('click',
          this.#handler.bind(this, index)))
     }
-    #handler(index) {
+    async #handler(index) {
         if (this.#activeIndex == undefined || index != this.#activeIndex) {
             if(this.#activeIndex != undefined) {
                  this.#buttons[this.#activeIndex].classList.remove(ACTIVE);
                  this.#sectionElements[this.#activeIndex].hidden = true;
             }
-            
-            this.#sectionElements[index].hidden = false;
             this.#buttons[index].classList.add(ACTIVE);
+            await this.#callbackFn(index);
+            this.#sectionElements[index].hidden = false;
             this.#activeIndex = index;
-            this.#callbackFn(index);
+            
 
         }
     }

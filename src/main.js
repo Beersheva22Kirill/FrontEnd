@@ -5,22 +5,25 @@ import EmployeeForm from "./ui_ux/EmployeeForm.js";
 import { getRandomEmployee } from "./utils/random.js";
 import statisticsConfig from "./config/statistic-config.json" assert{type: 'json'}
 import employeesConfig from "./config/employees-config.json" assert{type: 'json'}
-import { range } from "./utils/number-functions.js";
 import Spinner from "./ui_ux/Spinner.js";
-const N_EMPLOYEES = 100;
+
+const N_EMPLOYEES = 2;
 //employee model
 //{id: number of 9 digits, name: string, birthYear: number,
 // gender: female | male, salary: number, department: QA, Development, Audit, Accounting, Management}
+
 const sections = [
-    { title: "Employee operation", id: "employees-form-place" },
+    { title: "Employees operations", id: "employees-form-place" },
     { title: "Empolyees table", id: "employees-table-place" },
     { title: "Statistics", id: "statistics-place" }
 ];
+
 const { minSalary, maxSalary, departments, minYear, maxYear} = employeesConfig;
 const {age, salary} = statisticsConfig;
-const statisticsIndex = sections.findIndex(s => s.title == "Statistics");
-const emplTableIndex = sections.findIndex(s => s.title == "Empolyees table");
-const emplOperationIndex = sections.findIndex(s => s.title == "Employee operation");
+
+const statisticsButtonIndex = sections.findIndex(s => s.title == "Statistics");
+const emplTableButtonIndex = sections.findIndex(s => s.title == "Empolyees table");
+const emplOperationButtonIndex = sections.findIndex(s => s.title == "Employees operations");
 
 const employeeColumns = [
     {field: 'id', headerName: 'ID'},
@@ -46,43 +49,50 @@ const ageStatistics = new DataGrid("age-statistics-place", statisticsColumns );
 const salaryStatistics = new DataGrid("salary-statistics-place", statisticsColumns );
 const spinner = new Spinner("spinner-id");
 
+employeeForm.addHandler(async (data) => {
+    const employee = getRandomEmployee(minSalary, maxSalary, minYear, maxYear, departments);
+    await action(companyService.addEmployee.bind(companyService, employee));
+});
+
+
+
 //function 
 async function menuHandler(index) {
-    if(index == statisticsIndex) {
-        spinner.start();
-        ageStatistics.clearTable();
-        salaryStatistics.clearTable();     
-        let ageStat = await companyService.getStatistics(age.field, age.interval);
-        let salaryStat = await companyService.getStatistics(salary.field, salary.interval);
-        ageStatistics.fillData(ageStat);
-        salaryStatistics.fillData(salaryStat);
-        spinner.stop();
-    }
 
-    if(index == emplTableIndex){
-        spinner.start();
-        employeeTable.clearTable();
-        let allEmploees = await companyService.getAllEmployees();
-        employeeTable.fillData(allEmploees);
-        spinner.stop();
+    switch (index) {
+        case statisticsButtonIndex: {
+            const ageStat = await action(companyService.getStatistics.bind(companyService,age.field, age.interval)); //companyService.getStatistics(age.field, age.interval);
+            ageStatistics.fillData(ageStat);
+            const salaryStatData = await action(companyService.getStatistics.bind(companyService,salary.field, salary.interval)) //companyService.getStatistics(salary.field, salary.interval);
+            salaryStatistics.fillData(salaryStatData);
+            break;
+        }              
+        case emplTableButtonIndex:{
+            const allEmploees = await action(companyService.getAllEmployees.bind(companyService));
+            employeeTable.fillData(allEmploees);
+            break;
+        } 
+        case emplOperationButtonIndex: {
+            // const employee = getRandomEmployee(minSalary, maxSalary, minYear, maxYear, departments);
+            // await action (companyService.addEmployee.bind(companyService,employee)); 
+            break;
+        }
+   
     }
     //TODO handling Employees table menu hitting
 }
-async function run() {
-    while (true) {
-        await employeeForm.buttonHasPressed();
-        const employee = getRandomEmployee(minSalary, maxSalary, minYear, maxYear, departments);
-        const employeeAdded = companyService.addEmployee(employee);
-        employeeTable.insertRow(employeeAdded);
+async function action(serviceFn){
+    spinner.start();
+    const res = await serviceFn();
+    spinner.stop();
+    return res;
+}
+
+// to set start count of employees for application 
+    for (let index = 0; index < N_EMPLOYEES; index++) {
+        const employeeRandom = getRandomEmployee(minSalary, maxSalary, minYear,maxYear, departments);
+        await action(companyService.addEmployee.bind(companyService,employeeRandom));
     }
 
-}
-range(0, N_EMPLOYEES).forEach(() => {
-    const employeeRandom = getRandomEmployee(minSalary, maxSalary, minYear,maxYear, departments);
-    companyService.addEmployee(employeeRandom);
-}
- );
-
-
-run();
+    
 

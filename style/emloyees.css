@@ -62,7 +62,7 @@ table, th, td {
     position: absolute;
     width: 65px;
     height: 65px;
-    top: 250px;
+    top: 50vh;
 }
 
 .spinner {
@@ -99,26 +99,14 @@ table, th, td {
     }
   } 
 
-
- /* .spinner {
-    
-    left: 48vw;
-    top: 40vh;
-    border: 16px solid #f3f3f3;
-    border-top: 16px solid chocolate;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    animation: spin 2s linear infinite;
-
-  }
-
- 
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  } */
+#salary-statistics-place{
+  max-height: 40vh;
+  overflow-y: auto;
+}
+#age-statistics-place{
+  max-height: 26vh;
+  overflow-y: auto;
+}
 
 @media(min-width: 1000px){
 

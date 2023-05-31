@@ -8,9 +8,7 @@ export default class Spinner {
 
     start(){
         this.#innerElement.hidden = false;
-        this.#innerElement.innerHTML = `<div class = "spinner"></div>`;
-        
-        
+        this.#innerElement.innerHTML = `<div class = "spinner"></div>`;    
     }
 
     stop(){

@@ -14,7 +14,7 @@ export default class DataGrid {
     #getRow(obj) {
         return `<tr>
                    ${this.#keys.map(key => `<td>${obj[key]}</td>` ).join('')}
-                 </tr>  `
+                 </tr>`
     }
     insertRow(obj) {
         this.#tBodyElement.innerHTML += this.#getRow(obj)
@@ -35,7 +35,4 @@ export default class DataGrid {
 
     }
 
-    clearTable(){
-        this.#tBodyElement.innerHTML = "";
-    }
 }
