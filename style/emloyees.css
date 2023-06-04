@@ -4,6 +4,28 @@ body{
     flex-direction: column;
     align-items: center;
 }
+
+#modalBackground{
+    /* display: none;  */
+    background: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    z-index: 1;
+}
+.modal-window {
+  position: absolute;
+  width: 75vw;
+  height: 32vh;
+  top: 22%;
+  left: 8%;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  cursor: default;
+  padding: 31px 15px;
+}
+
 #title-service{
     text-align: center;
 }
@@ -45,6 +67,10 @@ table, th, td {
 
   td{
     min-width: 10vw;
+  }
+
+  .button-td{
+    border:none;
   }
 
   #employees-table-place{
@@ -108,7 +134,43 @@ table, th, td {
   overflow-y: auto;
 }
 
-@media(min-width: 1000px){
+.employees-form-place{
+  margin-top: 4vh;
+}
+
+.input-block{
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+.input-element{
+  margin: 10px;
+  margin-right: 2px;
+  width: 40vw;
+  
+}
+
+.radio-group{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.button-group{
+  text-align: center;
+}
+
+.submit-button{
+  width: 47vw;
+  height: 6vh;
+  font-size: 1em;
+}
+
+.submit-button:active {
+  background-color: chocolate;
+}
+
+@media(min-width: 650px){
 
 
     .menu-button{
@@ -123,5 +185,20 @@ table, th, td {
     #employees-table-place{
         font-size: 1em;
     } 
-}
 
+    .input-element{
+      width: 20vw;
+      height: 3vh;
+    }
+
+    .submit-button{
+      width: 12vw;
+      height: 4vh;
+    }
+
+    .modal-window {
+      width: 40vw;
+      top: 24%;
+      left: 30%;
+}
+}

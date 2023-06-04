@@ -4,6 +4,7 @@ export default class ApplicationBar {
     #sectionElements
     #activeIndex
     #callbackFn
+    
     constructor(parentId, sections, callbackFn) {
         //sections - array of objects 
         //each object {title: string, id: string}

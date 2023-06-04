@@ -1,4 +1,5 @@
 import CompanyService from "./service/CompanyService.js";
+import CompanyServiceRest from "./service/CompanyServiceRest.js";
 import ApplicationBar from "./ui_ux/ApplicationBar.js";
 import DataGrid from "./ui_ux/DataGrid.js";
 import EmployeeForm from "./ui_ux/EmployeeForm.js";
@@ -6,8 +7,9 @@ import { getRandomEmployee } from "./utils/random.js";
 import statisticsConfig from "./config/statistic-config.json" assert{type: 'json'}
 import employeesConfig from "./config/employees-config.json" assert{type: 'json'}
 import Spinner from "./ui_ux/Spinner.js";
+import { range } from "./utils/number-functions.js";
 
-const N_EMPLOYEES = 2;
+const N_EMPLOYEES = 10;
 //employee model
 //{id: number of 9 digits, name: string, birthYear: number,
 // gender: female | male, salary: number, department: QA, Development, Audit, Accounting, Management}
@@ -43,20 +45,49 @@ const statisticsColumns = [
 
 const menu = new ApplicationBar("menu-place", sections, menuHandler );
 const companyService = new CompanyService();
-const employeeForm = new EmployeeForm("employees-form-place");
-const employeeTable = new DataGrid("employees-table-place", employeeColumns);
+//const companyService = new CompanyServiceRest('http://localhost:3500/employees/');
+const employeeForm = new EmployeeForm("employees-form-place",employeesConfig);
+const employeeTable = new DataGrid("employees-table-place", employeeColumns, delHandler,updHandler);
 const ageStatistics = new DataGrid("age-statistics-place", statisticsColumns );
 const salaryStatistics = new DataGrid("salary-statistics-place", statisticsColumns );
 const spinner = new Spinner("spinner-id");
 
-employeeForm.addHandler(async (data) => {
-    const employee = getRandomEmployee(minSalary, maxSalary, minYear, maxYear, departments);
+employeeForm.addHandler(async (employee) => {
     await action(companyService.addEmployee.bind(companyService, employee));
 });
 
-
-
 //function 
+
+//to set start count of employees for application 
+async function createRandomEmplyees(){
+    const promises = range(0,N_EMPLOYEES).map(()=>
+    companyService.addEmployee(getRandomEmployee(minSalary, maxSalary, minYear,
+        maxYear, departments)));
+        spinner.stop();
+       return Promise.all(promises);
+}
+
+async function buildEmployeesTable() {
+    const allEmploees = await action(companyService.getAllEmployees.bind(companyService));
+    employeeTable.fillData(allEmploees);
+    employeeTable.openButton();
+}
+
+async function delHandler(id){
+    await action(companyService.deleteByID.bind(companyService, id));
+}
+
+async function updHandler(id){
+    const updateForm = new EmployeeForm("employees-table-place-update-form",employeesConfig);
+    const empl = await action(companyService.getEmployeeByID.bind(companyService,id));
+    updateForm.setModalWindow('modalBackground',empl);
+
+    updateForm.updateHendler(async (employeeUpd) => {
+        await action(companyService.updateEmployee.bind(companyService, employeeUpd, id));
+        await buildEmployeesTable();
+    })
+}
+
 async function menuHandler(index) {
 
     switch (index) {
@@ -68,18 +99,15 @@ async function menuHandler(index) {
             break;
         }              
         case emplTableButtonIndex:{
-            const allEmploees = await action(companyService.getAllEmployees.bind(companyService));
-            employeeTable.fillData(allEmploees);
+            await buildEmployeesTable();
             break;
         } 
         case emplOperationButtonIndex: {
-            // const employee = getRandomEmployee(minSalary, maxSalary, minYear, maxYear, departments);
-            // await action (companyService.addEmployee.bind(companyService,employee)); 
+            
             break;
         }
    
     }
-    //TODO handling Employees table menu hitting
 }
 async function action(serviceFn){
     spinner.start();
@@ -88,11 +116,9 @@ async function action(serviceFn){
     return res;
 }
 
-// to set start count of employees for application 
-    for (let index = 0; index < N_EMPLOYEES; index++) {
-        const employeeRandom = getRandomEmployee(minSalary, maxSalary, minYear,maxYear, departments);
-        await action(companyService.addEmployee.bind(companyService,employeeRandom));
-    }
+action(createRandomEmplyees.bind(this));
+
+    
 
     
 
