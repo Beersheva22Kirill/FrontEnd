@@ -46,8 +46,10 @@ export default class EmployeeForm {
         document.getElementById(`${this.#parentID}-${YEAR_ID}`).readOnly = true;
         if(object.gender == MALE){
             document.getElementById(`${this.#parentID}-${SEX_ID}-male`).checked = true;
+            document.getElementById(`${this.#parentID}-${SEX_ID}-female`).disabled = true;
         } else {
             document.getElementById(`${this.#parentID}-${SEX_ID}-female`).checked = true;
+            document.getElementById(`${this.#parentID}-${SEX_ID}-male`).disabled = true;
         }
         document.getElementById(`${this.#parentID}-${SALARY_ID}`).value = object.salary;
         document.getElementById(`${this.#parentID}-${DEPARTMENT_ID}`).value = object.department;
@@ -59,11 +61,13 @@ export default class EmployeeForm {
     }
 
     updateHendler(updateFn){
+
         this.#formElement.onsubmit = async (event) => {
             event.preventDefault();
+            this.#modalWindow.hidden = true; 
             this.#dataFromForm();
             await updateFn(this.#dataObject); 
-            this.#modalWindow.hidden = true;                
+                           
         }
     }
 
@@ -110,11 +114,11 @@ export default class EmployeeForm {
                 </div>
             </div>
             <div class = "button-group">
-                <button type = "submit" class = "submit-button" >Submit</button>
+                <button id = "${this.#parentID}-submit-button" type = "submit" class = "submit-button" >Submit</button>
                 
             </div>
             <div>
-                <button id = "${this.#parentID}-close-button" class = "close-button" hidden>Close</button>
+            <button id = "${this.#parentID}-close-button" class = "close-button" hidden>Close</button>
             </div>
             
         </form>`

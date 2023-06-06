@@ -1,44 +1,47 @@
 import { count } from "../utils/number-functions.js";
 import { getRandomInt } from "../utils/random.js";
+import Poller from "./PollerJson.js";
 
 const minId = 100000;
 const maxId = 1000000;
+const TIME_UPDATE = 500;
 //TODO by using setTimeout update the CompanyService code that
 //each public method returns Promise that after some timeout moves
 //in the resolved state
 export default class CompanyServiceRest {
-    #employees;
-    #URL;
-   
-    constructor(URL) {
-        this.#URL = URL;
-        this.#employees = {};
-        
 
+    #URL;
+    #poller;
+    #funcForPoller;
+   
+    constructor(URL,funcForPoller) {
+        this.#funcForPoller = funcForPoller;
+        this.#URL = URL;  
+        this.#poller = new Poller(TIME_UPDATE,this.#funcForPoller,this.getAllEmployees.bind(this));
+        this.#poller.start();
     }
+
     addEmployee(employee) {
 
-        return new Promise(resolved => { 
-            fetch(this.#URL,{
+        return new Promise(async resolved => { 
+            return resolved(fetch(this.#URL,{
                 method: 'POST',
                 headers: {"Content-Type":"application/json"},
                 body: JSON.stringify(employee)
-            }).then(response => response.json())  
+            }).then(response => response.json())) 
         })
-        
-        
-
     }
   
-    async getStatistics(field, interval) {
-        let array = await fetch(this.#URL).then(response => response.json());
+    async getStatistics(field, interval, emploees) {
+        emploees = !emploees ? await fetch(this.#URL).then(response => response.json()) : emploees;
+       
         const currentYear = new Date().getFullYear();
         
         if (field == 'birthYear') {
-            array = array.map(e => ({'age': currentYear - e.birthYear}));
+            emploees = emploees.map(e => ({'age': currentYear - e.birthYear}));
             field = 'age';
         }
-        const statisticsObj = count(array, field, interval);
+        const statisticsObj = count(emploees, field, interval);
         return new Promise(resolved => { 
             return resolved(Object.entries(statisticsObj).map(e => {
                 const min = e[0] * interval;
@@ -74,19 +77,21 @@ export default class CompanyServiceRest {
     }
 
     deleteByID(id){
-        const delEmpl = this.#employees[id];
 
         return new Promise(resolved => { 
             const URL = `${this.#URL}/${id}`;
            return resolved(fetch(URL,{
                 method: 'DELETE',
-                headers: {"Content-Type":"application/json"},
-                
+                headers: {"Content-Type":"application/json"},    
             }))
         })
         
         
     }
+
+    
+
+   
 
 
 }

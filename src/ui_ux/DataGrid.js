@@ -13,7 +13,6 @@ export default class DataGrid {
         this.#callbackFnDel = callbackFnDel;
         this.#callbackFnUpd = callbackFnUpd;
         this.#parentId = parentId;
-        //this.#buttonsDelElement = [];
         this.#keys = columns.map(c => c.field);
         this.#buildTableHeader(parentId, columns.map(c => c.headerName))
     }
@@ -58,13 +57,18 @@ export default class DataGrid {
     }
 
     async #delHandler(index){
-        const delRow = document.getElementById(`${this.#parentId}-tr-${index}`)
-        const child = delRow.children;
-        const id = Array.from(child)[0].innerText;
-        const parent = delRow.parentNode;
-
-        parent.removeChild(delRow);  
-        await this.#callbackFnDel(id);      
+        
+            const delRow = document.getElementById(`${this.#parentId}-tr-${index}`)
+            const child = delRow.children;
+            const id = Array.from(child)[0].innerText;
+            const parent = delRow.parentNode;
+            if(confirm(`Removing Employee? You are going to remove employee with id ${id}`)){
+                parent.removeChild(delRow);  
+                await this.#callbackFnDel(id); 
+            }
+            
+        
+             
     }
 
     async #updHandler(index){

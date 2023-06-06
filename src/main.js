@@ -2,7 +2,7 @@ import CompanyService from "./service/CompanyService.js";
 import CompanyServiceRest from "./service/CompanyServiceRest.js";
 import ApplicationBar from "./ui_ux/ApplicationBar.js";
 import DataGrid from "./ui_ux/DataGrid.js";
-import EmployeeForm from "./ui_ux/EmployeeForm.js";
+import EmployeeForm from "./ui_ux/employeeForm.js";
 import { getRandomEmployee } from "./utils/random.js";
 import statisticsConfig from "./config/statistic-config.json" assert{type: 'json'}
 import employeesConfig from "./config/employees-config.json" assert{type: 'json'}
@@ -44,8 +44,8 @@ const statisticsColumns = [
 ]
 
 const menu = new ApplicationBar("menu-place", sections, menuHandler );
-const companyService = new CompanyService();
-//const companyService = new CompanyServiceRest('http://localhost:3500/employees/');
+//const companyService = new CompanyService();
+const companyService = new CompanyServiceRest('http://localhost:3500/employees/',callbackPoller);
 const employeeForm = new EmployeeForm("employees-form-place",employeesConfig);
 const employeeTable = new DataGrid("employees-table-place", employeeColumns, delHandler,updHandler);
 const ageStatistics = new DataGrid("age-statistics-place", statisticsColumns );
@@ -67,14 +67,10 @@ async function createRandomEmplyees(){
        return Promise.all(promises);
 }
 
-async function buildEmployeesTable() {
-    const allEmploees = await action(companyService.getAllEmployees.bind(companyService));
-    employeeTable.fillData(allEmploees);
-    employeeTable.openButton();
-}
+
 
 async function delHandler(id){
-    await action(companyService.deleteByID.bind(companyService, id));
+        await action(companyService.deleteByID.bind(companyService, id));
 }
 
 async function updHandler(id){
@@ -88,35 +84,60 @@ async function updHandler(id){
     })
 }
 
-async function menuHandler(index) {
+async function callbackPoller(emploees){
+    switch(menu.getActiveindex()){
+        case statisticsButtonIndex: {
+            await buildStatistics(emploees);
+            break;
+        }
+        case emplTableButtonIndex:{
+            await buildEmployeesTable(emploees);
+            break;
+        }
+    }
+}
 
+async function menuHandler(index) {
     switch (index) {
         case statisticsButtonIndex: {
-            const ageStat = await action(companyService.getStatistics.bind(companyService,age.field, age.interval)); //companyService.getStatistics(age.field, age.interval);
-            ageStatistics.fillData(ageStat);
-            const salaryStatData = await action(companyService.getStatistics.bind(companyService,salary.field, salary.interval)) //companyService.getStatistics(salary.field, salary.interval);
-            salaryStatistics.fillData(salaryStatData);
+            await buildStatistics();
             break;
         }              
         case emplTableButtonIndex:{
             await buildEmployeesTable();
             break;
-        } 
-        case emplOperationButtonIndex: {
-            
-            break;
-        }
-   
+        }    
     }
 }
-async function action(serviceFn){
-    spinner.start();
-    const res = await serviceFn();
-    spinner.stop();
-    return res;
+
+async function buildEmployeesTable(emploees) {
+    emploees = !emploees ? await action(companyService.getAllEmployees.bind(companyService)) : emploees
+    employeeTable.fillData(emploees);
+    employeeTable.openButton();
 }
 
-action(createRandomEmplyees.bind(this));
+async function buildStatistics(emploees) {
+    const ageStat = await action(companyService.getStatistics.bind(companyService, age.field, age.interval,emploees)); 
+    ageStatistics.fillData(ageStat);
+    const salaryStatData = await action(companyService.getStatistics.bind(companyService, salary.field, salary.interval,emploees));
+    salaryStatistics.fillData(salaryStatData);
+}
+
+async function action(serviceFn){
+    spinner.start();
+
+    try {
+        const res = await serviceFn();
+        return res;
+    } catch (error) {
+        allert(error)
+    } finally{
+        spinner.stop();
+    }
+    
+}
+
+//action(createRandomEmplyees.bind(this));
 
     
 

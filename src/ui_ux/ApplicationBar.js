@@ -42,4 +42,8 @@ export default class ApplicationBar {
         }
     }
 
+    getActiveindex(){
+        return this.#activeIndex;
+    }
+
 }
